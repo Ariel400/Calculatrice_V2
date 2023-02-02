@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import com.fathzer.soft.javaluator.DoubleEvaluator
+import java.text.DecimalFormat
 
 class CalcPortraitActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,6 +17,7 @@ class CalcPortraitActivity : AppCompatActivity(), View.OnClickListener {
         val tv = v as TextView
         val resultTV = findViewById<TextView>(R.id.resultTV)
         var oldText = resultTV.text.toString()
+
         fun onSaveInstanceState(outState: Bundle) {
             super.onSaveInstanceState(outState)
             outState.putString("oldtext", oldText)
@@ -40,7 +42,8 @@ class CalcPortraitActivity : AppCompatActivity(), View.OnClickListener {
                 val evaluator = DoubleEvaluator()
                 val expression = resultTV.text.replace(Regex("×"), "*")
                 val result = evaluator.evaluate(expression)
-                resultTV.setText(result.toString())
+                resultTV.setText(DecimalFormat("0.######").format(result).toString())
+
             }
             else -> {
                 val toAppendString = tv.text.toString()
