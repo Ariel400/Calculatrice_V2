@@ -7,11 +7,12 @@
     android:rowCount="7"
     android:columnCount="4"
     tools:ignore="MissingDefaultResource">
+
     <TextView
         android:id="@+id/resultTV"
-        android:layout_width="match_parent"
         style="@style/result_style"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <TextView android:layout_width="0dp"
         android:layout_height="0dp"
@@ -93,9 +94,9 @@
     <TextView android:layout_width="0dp"
         android:layout_height="0dp"
         style="@style/cell_style"
-        android:text="="
-        android:layout_rowSpan="2"
+        android:text="(-)"
         />
+
 
     <TextView
         style="@style/cell_style"
@@ -114,4 +115,11 @@
         style="@style/cell_style"
         android:text="."
         />
+    <TextView android:layout_width="0dp"
+    android:layout_height="0dp"
+    style="@style/cell_style"
+    android:text="="
+    android:layout_rowSpan="2"
+    />
+
 </GridLayout>

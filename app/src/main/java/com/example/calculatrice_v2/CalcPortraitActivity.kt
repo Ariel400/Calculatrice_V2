@@ -13,10 +13,11 @@ class CalcPortraitActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.calc_portrait)
     }
 
-    override fun onClick(v: View?) {
+  /*  override fun onClick(v: View?) {
         val tv = v as TextView
         val resultTV = findViewById<TextView>(R.id.resultTV)
         var oldText = resultTV.text.toString()
+        var newText = resultTV.text.toString()
 
         fun onSaveInstanceState(outState: Bundle) {
             super.onSaveInstanceState(outState)
@@ -38,22 +39,30 @@ class CalcPortraitActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
             "AC" -> {resultTV.setText(null)}
+
             "=" -> {
+
                 val evaluator = DoubleEvaluator()
                 val expression = resultTV.text.replace(Regex("×"), "*")
                 val result = evaluator.evaluate(expression)
-                resultTV.setText(expression +'='+ DecimalFormat("0.######").format(result).toString())
+
+                resultTV.setText(/*expression +'='+ */DecimalFormat("0.######").format(result).toString())
 
             }
-            "-" -> {resultTV.setText(resultTV.text.toString() + '-')}
-            else -> {
-                val toAppendString = tv.text.toString()
-                if(isOperator(toAppendString[0]) && isOperator(oldText[oldText.length - 1])){
-                    oldText = oldText.substring(0, oldText.length - 1)
+            "(-)" -> {resultTV.setText(resultTV.text.toString() + '-')}
+            //
+                else -> {
+                    val toAppendString = tv.text.toString()
+                    if(isOperator(toAppendString[0]) && isOperator(oldText[oldText.length - 1])){
+                        oldText = oldText.substring(oldText.length - 1)
+                    }
+                    else{
+                        val newText =  toAppendString+oldText
+                        resultTV.setText(newText)
+                    }
+                    val newText = oldText + toAppendString
+                    resultTV.setText(newText)
                 }
-                val newText = oldText + toAppendString
-                resultTV.setText(newText)
-            }
         }
     }
 
@@ -62,5 +71,10 @@ class CalcPortraitActivity : AppCompatActivity(), View.OnClickListener {
             'x', '*', '×', '/', '+', '-','%' -> { return true}
             else -> return false
         }
-    }
+    }*/
+
+
 }
+
+
+
