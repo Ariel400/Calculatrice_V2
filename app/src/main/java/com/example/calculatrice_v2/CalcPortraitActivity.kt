@@ -1,9 +1,13 @@
 package com.example.calculatrice_v2
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import com.fathzer.soft.javaluator.DoubleEvaluator
 import java.text.DecimalFormat
 
@@ -13,11 +17,11 @@ class CalcPortraitActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.calc_portrait)
     }
 
-  /*  override fun onClick(v: View?) {
+   override fun onClick(v: View?) {
         val tv = v as TextView
         val resultTV = findViewById<TextView>(R.id.resultTV)
         var oldText = resultTV.text.toString()
-        var newText = resultTV.text.toString()
+
 
         fun onSaveInstanceState(outState: Bundle) {
             super.onSaveInstanceState(outState)
@@ -30,8 +34,16 @@ class CalcPortraitActivity : AppCompatActivity(), View.OnClickListener {
             oldText = savedInstanceState.getString("oldText") ?: ""
 
         }
+       resultTV.setOnLongClickListener {
+           val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+           val clip = ClipData.newPlainText("result", resultTV.text)
+           clipboard.setPrimaryClip(clip)
+           Toast.makeText(this, "Resultat copié dans le press papier", Toast.LENGTH_SHORT).show()
+           true
+       }
 
-        when(tv.text.toString()){
+
+       when(tv.text.toString()){
             "Del" -> {
                 if(oldText.length > 0){
                     val newText = oldText.substring(0, oldText.length - 1)
@@ -71,7 +83,7 @@ class CalcPortraitActivity : AppCompatActivity(), View.OnClickListener {
             'x', '*', '×', '/', '+', '-','%' -> { return true}
             else -> return false
         }
-    }*/
+    }
 
 
 }
