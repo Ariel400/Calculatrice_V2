@@ -42,9 +42,10 @@ class CalcPortraitActivity : AppCompatActivity(), View.OnClickListener {
                 val evaluator = DoubleEvaluator()
                 val expression = resultTV.text.replace(Regex("×"), "*")
                 val result = evaluator.evaluate(expression)
-                resultTV.setText(DecimalFormat("0.######").format(result).toString())
+                resultTV.setText(expression +'='+ DecimalFormat("0.######").format(result).toString())
 
             }
+            "-" -> {resultTV.setText(resultTV.text.toString() + '-')}
             else -> {
                 val toAppendString = tv.text.toString()
                 if(isOperator(toAppendString[0]) && isOperator(oldText[oldText.length - 1])){
