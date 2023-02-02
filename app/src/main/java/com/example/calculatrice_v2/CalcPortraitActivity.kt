@@ -16,6 +16,17 @@ class CalcPortraitActivity : AppCompatActivity(), View.OnClickListener {
         val tv = v as TextView
         val resultTV = findViewById<TextView>(R.id.resultTV)
         var oldText = resultTV.text.toString()
+        fun onSaveInstanceState(outState: Bundle) {
+            super.onSaveInstanceState(outState)
+            outState.putString("oldtext", oldText)
+
+        }
+
+        fun onRestoreInstanceState(savedInstanceState: Bundle) {
+            super.onRestoreInstanceState(savedInstanceState)
+            oldText = savedInstanceState.getString("oldText") ?: ""
+
+        }
 
         when(tv.text.toString()){
             "Del" -> {
