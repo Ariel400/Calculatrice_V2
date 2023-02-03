@@ -53,6 +53,7 @@ class CalcPortraitActivity : AppCompatActivity(), View.OnClickListener {
             "AC" -> {resultTV.setText(null)}
 
             "=" -> {
+                removeParentheses(resultTV)
 
                 val evaluator = DoubleEvaluator()
                 val expression = resultTV.text.replace(Regex("×"), "*")
@@ -61,7 +62,7 @@ class CalcPortraitActivity : AppCompatActivity(), View.OnClickListener {
                 resultTV.setText(/*expression +'='+ */DecimalFormat("0.######").format(result).toString())
 
             }
-            "(-)" -> {resultTV.setText(resultTV.text.toString() + '-')}
+            "(-)" -> {changeSign(resultTV)}
             //
                 else -> {
                     val toAppendString = tv.text.toString()
@@ -84,6 +85,36 @@ class CalcPortraitActivity : AppCompatActivity(), View.OnClickListener {
             else -> return false
         }
     }
+
+    fun changeSign(screen: TextView) {
+        var currentExpression = screen.text.toString()
+
+        val lastIndex = currentExpression.length - 1
+        var lastNumberStart = lastIndex
+        while (lastNumberStart >= 0 && currentExpression[lastNumberStart].isDigit()) {
+            lastNumberStart--
+        }
+        lastNumberStart++
+
+        var lastNumber = currentExpression.substring(lastNumberStart, lastIndex + 1).toDouble()
+        lastNumber = -lastNumber
+        currentExpression = currentExpression.substring(0, lastNumberStart) +'(' + lastNumber.toString()+')'
+
+        screen.text = currentExpression
+    }
+
+    fun conversion(result: TextView){
+        DecimalFormat("0.######").format(result).toString()
+    }
+
+    fun removeParentheses(screen: TextView) {
+        var currentExpression = screen.text.toString()
+        currentExpression = currentExpression.replace("(", "")
+        currentExpression = currentExpression.replace(")", "")
+        screen.text = currentExpression
+    }
+
+
 
 
 }
