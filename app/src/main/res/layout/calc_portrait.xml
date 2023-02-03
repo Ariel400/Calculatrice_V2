@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/operation"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CalcPortraitActivity"
-    android:rowCount="7"
     android:columnCount="4"
+    android:rowCount="7"
+    tools:context=".CalcPortraitActivity"
     tools:ignore="MissingDefaultResource">
 
     <TextView
@@ -14,112 +15,146 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <TextView android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="Del"
+    <Button
+        android:id="@+id/boutonSup"
         style="@style/cell_style"
-        />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="Del" />
 
-    <TextView
+    <Button
+        android:id="@+id/boutonAC"
         style="@style/cell_style"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="AC" />
-    <TextView android:layout_width="0dp"
-        android:layout_height="0dp"
-        style="@style/cell_style"
-        android:text="/"
-        />
-    <TextView android:layout_width="0dp"
-        android:layout_height="0dp"
-        style="@style/cell_style"
-        android:text="×"
-        />
 
-    <TextView android:layout_width="0dp"
-        android:layout_height="0dp"
+    <Button
+        android:id="@+id/boutonDivision"
         style="@style/cell_style"
-        android:text="7"
-        />
-    <TextView android:layout_width="0dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
+        android:text="/" />
+
+    <Button
+        android:id="@+id/boutonMult"
         style="@style/cell_style"
-        android:text="8"
-        />
-    <TextView android:layout_width="0dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
+        android:text="×" />
+
+    <Button
+        android:id="@+id/bouton7"
         style="@style/cell_style"
-        android:text="9"
-        />
-    <TextView android:layout_width="0dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
+        android:text="7" />
+
+    <Button
+        android:id="@+id/bouton8"
         style="@style/cell_style"
-        android:text="-"
-        />
-    <TextView android:layout_width="0dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
+        android:text="8" />
+
+    <Button
+        android:id="@+id/bouton9"
         style="@style/cell_style"
-        android:text="4"
-        />
-    <TextView android:layout_width="0dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
+        android:text="9" />
+
+    <Button
+        android:id="@+id/boutonMoins"
         style="@style/cell_style"
-        android:text="5"
-        />
-    <TextView android:layout_width="0dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
+        android:text="-" />
+
+    <Button
+        android:id="@+id/bouton4"
         style="@style/cell_style"
-        android:text="6"
-        />
-    <TextView android:layout_width="0dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
+        android:text="4" />
+
+    <Button
+        android:id="@+id/bouton5"
         style="@style/cell_style"
-        android:text="+"
-        />
-    <TextView android:layout_width="0dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
+        android:text="5" />
+
+    <Button
+        android:id="@+id/bouton6"
         style="@style/cell_style"
-        android:text="1"
-        />
-    <TextView android:layout_width="0dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
+        android:text="6" />
+
+    <Button
+        android:id="@+id/boutonPlus"
         style="@style/cell_style"
-        android:text="2"
-        />
-    <TextView android:layout_width="0dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
+        android:text="+" />
+
+    <Button
+        android:id="@+id/bouton1"
         style="@style/cell_style"
-        android:text="3"
-        />
-    <TextView android:layout_width="0dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
+        android:text="1" />
+
+    <Button
+        android:id="@+id/bouton2"
         style="@style/cell_style"
-        android:text="(-)"
-        />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="2" />
+
+    <Button
+        android:id="@+id/bouton3"
+        style="@style/cell_style"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="3" />
+
+    <Button
+        android:id="@+id/boutonPlusOuMoins"
+        style="@style/cell_style"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="(-)" />
 
 
-    <TextView
+    <Button
+        android:id="@+id/bouton0"
         style="@style/cell_style"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="0" />
 
-    <TextView
+    <Button
+        android:id="@+id/boutonModulo"
         style="@style/cell_style"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="%" />
 
-    <TextView android:layout_width="0dp"
-        android:layout_height="0dp"
+    <Button
+        android:id="@+id/boutonDot"
         style="@style/cell_style"
-        android:text="."
-        />
-    <TextView android:layout_width="0dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
+        android:text="." />
+
+    <Button
+        android:id="@+id/boutonEgal"
         style="@style/cell_style"
-        android:text="="
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_rowSpan="2"
-        />
+        android:text="=" />
 
 </GridLayout>
