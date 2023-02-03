@@ -23,6 +23,8 @@ class CalcPortraitActivity : AppCompatActivity(), View.OnClickListener {
         var oldText = resultTV.text.toString()
 
 
+
+
         fun onSaveInstanceState(outState: Bundle) {
             super.onSaveInstanceState(outState)
             outState.putString("oldtext", oldText)
@@ -62,6 +64,10 @@ class CalcPortraitActivity : AppCompatActivity(), View.OnClickListener {
                 resultTV.setText(/*expression +'='+ */DecimalFormat("0.######").format(result).toString())
 
             }
+
+           "."->{
+               resultTV.text=""
+           }
             "(-)" -> {changeSign(resultTV)}
             //
                 else -> {
@@ -78,13 +84,15 @@ class CalcPortraitActivity : AppCompatActivity(), View.OnClickListener {
                 }
         }
     }
-
+   }
     fun isOperator(c: Char): Boolean {
         when(c){
             'x', '*', '×', '/', '+', '-','%' -> { return true}
             else -> return false
         }
     }
+
+
 
     fun changeSign(screen: TextView) {
         var currentExpression = screen.text.toString()
@@ -117,7 +125,7 @@ class CalcPortraitActivity : AppCompatActivity(), View.OnClickListener {
 
 
 
-}
+
 
 
 
