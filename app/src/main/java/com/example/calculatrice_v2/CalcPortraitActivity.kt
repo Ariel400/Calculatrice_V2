@@ -1,18 +1,23 @@
 package com.example.calculatrice_v2
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.fathzer.soft.javaluator.DoubleEvaluator
 import java.text.DecimalFormat
 
 
-class CalcPortraitActivity : AppCompatActivity(){
+class CalcPortraitActivity : AppCompatActivity(), View.OnClickListener{
     private var input: String = ""
-    private var result: TextView? = null
+    private var resultTV: TextView? = null
 
-    
+
     //Les boutons
     private lateinit var bouton0: Button
     private lateinit var bouton1: Button
@@ -41,6 +46,91 @@ class CalcPortraitActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.calc_portrait)
+    }
+
+
+    override fun onClick(p0: View?) {
+        val resultTV = findViewById<TextView>(R.id.resultTV)
+        var oldText = resultTV.text.toString()
+
+
+        fun onSaveInstanceState(outState: Bundle) {
+            super.onSaveInstanceState(outState)
+            outState.putString("oldtext", oldText)
+
+        }
+
+        fun onRestoreInstanceState(savedInstanceState: Bundle) {
+            super.onRestoreInstanceState(savedInstanceState)
+            oldText = savedInstanceState.getString("oldText") ?: ""
+
+        }
+        resultTV.setOnLongClickListener {
+            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("result", resultTV.text)
+            clipboard.setPrimaryClip(clip)
+            Toast.makeText(this, "Resultat copié dans le press papier", Toast.LENGTH_SHORT).show()
+            true
+        }
+
+        fun addInput(input1: String) {
+            input += input1
+            resultTV.text = input
+        }
+        fun invalidFormat(c: String, ch: String): Boolean{
+            return resultTV.text.isEmpty() && (ch == "/" || ch == "*" || ch == "+" || ch == "%")
+        }
+
+        fun evaluate(){
+            val evaluator = DoubleEvaluator()
+            val expression = resultTV.text.replace(Regex("×"), "*")
+            val myresult = evaluator.evaluate(expression)
+
+            input = DecimalFormat("0.######").format(myresult).toString()
+            resultTV.text = input
+
+        }
+        fun countOperator(input: String): Int{
+            val operatorRegex = "[+\\-*/]".toRegex()
+            return operatorRegex.findAll(input).count()
+        }
+        fun setOperator(op: String) {
+
+            if (invalidFormat(resultTV.text.toString(),op)){
+                Toast.makeText(this, "Format invalide", Toast.LENGTH_SHORT).show()
+            }
+            else if(countOperator(resultTV.text.toString()) == 1 && !input.contains("-")){   //Si l'expression contient un format valide
+                evaluate()
+                input += op
+                resultTV.text = input
+            }
+            else{
+                addInput(op)
+            }
+
+        }
+
+
+
+        fun changeSign(screen: String) {
+            var currentExpression = screen
+
+            val lastIndex = currentExpression.length - 1
+            var lastNumberStart = lastIndex
+            while (lastNumberStart >= 0 && currentExpression[lastNumberStart].isDigit()) {
+                lastNumberStart--
+            }
+            lastNumberStart++
+
+            var lastNumber = currentExpression.substring(lastNumberStart, lastIndex + 1).toDouble()
+            lastNumber = -lastNumber
+            currentExpression = currentExpression.substring(0, lastNumberStart) +'(' + lastNumber.toString()+')'
+
+            input = currentExpression
+
+            resultTV.text = input
+        }
+
 
 
         //supportActionBar?.hide();
@@ -65,7 +155,7 @@ class CalcPortraitActivity : AppCompatActivity(){
         boutonDivision=findViewById(R.id.boutonDivision)
         boutonModulo=findViewById(R.id.boutonModulo)
         boutonPlusOuMoins=findViewById(R.id.boutonPlusOuMoins)
-        result = findViewById(R.id.resultTV)
+
 
 
         //Ajout de Nombres
@@ -94,95 +184,33 @@ class CalcPortraitActivity : AppCompatActivity(){
 
         boutonBackspace.setOnClickListener {
             if (input.isNotEmpty()) {
-                input = input.substring(0, input.length - 1)
-                result!!.text = input
+                if(input.length == 2 && input[0] == '-'){
+                    resultTV.text = ""
+                    input = ""
+                }
+                else{
+                    input = input.substring(0, input.length - 1)
+                    resultTV.text = input
+                }
+
             }
+
         }
 
         boutonReset.setOnClickListener {
             input = ""
-            result!!.text = ""
+            resultTV.text = ""
         }
 
         boutonPlusOuMoins.setOnClickListener {
 
-            changeSign(result!!.text.toString())
+            changeSign(resultTV.text.toString())
         }
 
         // Opérations
         boutonEgal.setOnClickListener {
             evaluate()
         }
-
-    }
-
-
-
-
-
-
-
-
-    private fun addInput(input1: String) {
-        input += input1
-        result!!.text = input
-    }
-
-    private fun setOperator(op: String) {
-
-        if (invalidFormat(result!!.text.toString(),op)){
-            println("Format invalide")
-        }
-        else if(countOperator(result!!.text.toString()) == 1 && !input.contains("-")){   //Si l'expression contient un format valide
-
-            evaluate()
-            input += op
-            result!!.text = input
-        }
-        else{
-            addInput(op)
-        }
-
-    }
-
-
-
-    private fun invalidFormat(c: String, ch: String): Boolean{
-        return result!!.text.isEmpty() && (ch == "/" || ch == "*" || ch == "+" || ch == "%")
-    }
-
-    private fun evaluate(){
-        val evaluator = DoubleEvaluator()
-        val expression = result!!.text.replace(Regex("×"), "*")
-        val myresult = evaluator.evaluate(expression)
-
-        input = DecimalFormat("0.######").format(myresult).toString()
-        result!!.text = input
-
-    }
-
-    private fun countOperator(input: String): Int{
-        val operatorRegex = "[+\\-*/]".toRegex()
-        return operatorRegex.findAll(input).count()
-    }
-
-    private fun changeSign(screen: String) {
-        var currentExpression = screen
-
-        val lastIndex = currentExpression.length - 1
-        var lastNumberStart = lastIndex
-        while (lastNumberStart >= 0 && currentExpression[lastNumberStart].isDigit()) {
-            lastNumberStart--
-        }
-        lastNumberStart++
-
-        var lastNumber = currentExpression.substring(lastNumberStart, lastIndex + 1).toDouble()
-        lastNumber = -lastNumber
-        currentExpression = currentExpression.substring(0, lastNumberStart) +'(' + lastNumber.toString()+')'
-
-        input = currentExpression
-
-        result!!.text = input
     }
 
 }
