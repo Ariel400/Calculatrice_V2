@@ -1,10 +1,9 @@
 package com.example.calculatrice_v2
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.TextView
 import android.widget.Button
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.fathzer.soft.javaluator.DoubleEvaluator
 import java.text.DecimalFormat
 
@@ -12,32 +11,29 @@ import java.text.DecimalFormat
 class CalcPortraitActivity : AppCompatActivity(){
     private var input: String = ""
     private var result: TextView? = null
-    private var lastOperator: String = ""
 
-
-
-
+    
     //Les boutons
     private lateinit var bouton0: Button
     private lateinit var bouton1: Button
     private lateinit var bouton2: Button
-    lateinit var bouton3: Button
-    lateinit var bouton4: Button
-    lateinit var bouton5: Button
-    lateinit var bouton6: Button
-    lateinit var bouton7: Button
-    lateinit var bouton8: Button
-    lateinit var bouton9: Button
-    lateinit var boutonReset: Button
-    lateinit var boutonBackspace: Button
-    lateinit var boutonDot: Button
-    lateinit var boutonEgal: Button
-    lateinit var boutonPlus: Button
-    lateinit var boutonMoins: Button
-    lateinit var boutonMult: Button
-    lateinit var boutonDivision: Button
-    lateinit var boutonModulo: Button
-    lateinit var boutonPlusOuMoins: Button
+    private lateinit var bouton3: Button
+    private lateinit var bouton4: Button
+    private lateinit var bouton5: Button
+    private lateinit var bouton6: Button
+    private lateinit var bouton7: Button
+    private lateinit var bouton8: Button
+    private lateinit var bouton9: Button
+    private lateinit var boutonReset: Button
+    private lateinit var boutonBackspace: Button
+    private lateinit var boutonDot: Button
+    private lateinit var boutonEgal: Button
+    private lateinit var boutonPlus: Button
+    private lateinit var boutonMoins: Button
+    private lateinit var boutonMult: Button
+    private lateinit var boutonDivision: Button
+    private lateinit var boutonModulo: Button
+    private lateinit var boutonPlusOuMoins: Button
 
 
 
@@ -93,6 +89,9 @@ class CalcPortraitActivity : AppCompatActivity(){
         boutonModulo.setOnClickListener { setOperator("%") }
 
         //fonctions autres
+
+
+
         boutonBackspace.setOnClickListener {
             if (input.isNotEmpty()) {
                 input = input.substring(0, input.length - 1)
@@ -113,10 +112,14 @@ class CalcPortraitActivity : AppCompatActivity(){
         // Opérations
         boutonEgal.setOnClickListener {
             evaluate()
-
         }
 
     }
+
+
+
+
+
 
 
 
@@ -144,12 +147,11 @@ class CalcPortraitActivity : AppCompatActivity(){
 
 
 
-    fun invalidFormat(c: String, ch: String): Boolean{
-        if(result!!.text.isEmpty() && (ch == "/" || ch == "*" || ch == "+" || ch == "%")) return true //format invalide
-        else return false
+    private fun invalidFormat(c: String, ch: String): Boolean{
+        return result!!.text.isEmpty() && (ch == "/" || ch == "*" || ch == "+" || ch == "%")
     }
 
-    fun evaluate(){
+    private fun evaluate(){
         val evaluator = DoubleEvaluator()
         val expression = result!!.text.replace(Regex("×"), "*")
         val myresult = evaluator.evaluate(expression)
@@ -159,20 +161,12 @@ class CalcPortraitActivity : AppCompatActivity(){
 
     }
 
-    fun countOperator(input: String): Int{
+    private fun countOperator(input: String): Int{
         val operatorRegex = "[+\\-*/]".toRegex()
         return operatorRegex.findAll(input).count()
     }
 
-    fun invalidSetOperator(ch: Char): Boolean{
-        if (result!!.text[result!!.text.length -1] != ch){
-            print("impossible que 2 opérateurs se suivent")
-            return true
-        }
-        else return false
-    }
-
-    fun changeSign(screen: String) {
+    private fun changeSign(screen: String) {
         var currentExpression = screen
 
         val lastIndex = currentExpression.length - 1
@@ -190,10 +184,6 @@ class CalcPortraitActivity : AppCompatActivity(){
 
         result!!.text = input
     }
-
-
-
-
 
 }
 
